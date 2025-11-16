@@ -26,6 +26,8 @@ export const employeeStorage = {
       const employees = this.getAll();
       employees.push({ basicInfo, details });
       localStorage.setItem(EMPLOYEES_KEY, JSON.stringify(employees));
+      console.log('[employeeStorage] Stored employee:', { basicInfo, details });
+      console.log('[employeeStorage] Total employees in storage:', employees.length);
     } catch (error) {
       console.error('Error writing to localStorage:', error);
     }
@@ -57,12 +59,16 @@ export const employeeStorage = {
 
   // Get all basic info records
   getAllBasicInfo(): BasicInfo[] {
-    return this.getAll().map(emp => emp.basicInfo);
+    const result = this.getAll().map(emp => emp.basicInfo);
+    console.log('[employeeStorage] getAllBasicInfo returning:', result.length, 'items');
+    return result;
   },
 
   // Get all details records
   getAllDetails(): Details[] {
-    return this.getAll().map(emp => emp.details);
+    const result = this.getAll().map(emp => emp.details);
+    console.log('[employeeStorage] getAllDetails returning:', result.length, 'items');
+    return result;
   },
 
   // Clear all stored employees
