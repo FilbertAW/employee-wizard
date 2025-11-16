@@ -1,0 +1,94 @@
+{
+  "departments": [
+    {
+      "id": "1",
+      "name": "Lending"
+    },
+    {
+      "id": "2",
+      "name": "Funding"
+    },
+    {
+      "id": "3",
+      "name": "Operations"
+    },
+    {
+      "id": "4",
+      "name": "Engineering"
+    }
+  ],
+  "basicInfo": [
+    {
+      "id": "0d35",
+      "fullName": "test",
+      "email": "sda@asd.asda",
+      "department": "Engineering",
+      "role": "Engineer",
+      "employeeId": "ENG-001"
+    },
+    {
+      "id": "e43f",
+      "fullName": "test",
+      "email": "sda@asd.asda",
+      "department": "Engineering",
+      "role": "Admin",
+      "employeeId": "ENG-002"
+    },
+    {
+      "id": "ecfb",
+      "fullName": "test",
+      "email": "sda@asd.asda",
+      "department": "Engineering",
+      "role": "Admin",
+      "employeeId": "ENG-003"
+    },
+    {
+      "id": "edfe",
+      "fullName": "test",
+      "email": "sda@asd.asda",
+      "department": "Engineering",
+      "role": "Admin",
+      "employeeId": "ENG-004"
+    },
+    {
+      "id": "fb7f",
+      "fullName": "test filbert",
+      "email": "filbert@test.com",
+      "department": "Lending",
+      "role": "Ops",
+      "employeeId": "LEN-001"
+    },
+    {
+      "id": "41bc",
+      "fullName": "test123",
+      "email": "test@test.test",
+      "department": "Funding",
+      "role": "Admin",
+      "employeeId": "FUN-001"
+    },
+    {
+      "id": "0f09",
+      "fullName": "test admin",
+      "email": "test@admin.123",
+      "department": "Engineering",
+      "role": "Engineer",
+      "employeeId": "ENG-005"
+    },
+    {
+      "id": "0db0",
+      "fullName": "test admin engineer",
+      "email": "test@admin.eng",
+      "department": "Engineering",
+      "role": "Admin",
+      "employeeId": "ENG-006"
+    },
+    {
+      "id": "94b4",
+      "fullName": "test admin",
+      "email": "filbertanthony01@gmail.com",
+      "department": "Engineering",
+      "role": "Admin",
+      "employeeId": "E-007"
+    }
+  ]
+}
