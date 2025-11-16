@@ -8,21 +8,23 @@ A 2-step role-based wizard form application for managing employee data with asyn
 
 > **⚠️ Important Note About the Live Demo**
 >
-> The deployed version on Vercel shows the **application UI and interface** but has **limited functionality** because it does not include the json-server mock API backends.
+> The deployed version on Vercel is **fully functional** with fallback data for departments and locations when json-server is unavailable.
 >
 > **What works on the live demo:**
 > - ✅ UI/UX and responsive design (360px - 1440px)
 > - ✅ Form validation
+> - ✅ Async autocomplete for Department and Location (uses fallback data)
 > - ✅ Draft auto-save to localStorage
 > - ✅ File upload with Base64 preview
+> - ✅ Employee ID auto-generation
 > - ✅ Navigation and routing
+> - ✅ Full wizard flow
 >
-> **What requires local setup:**
-> - ❌ Async autocomplete for Department and Location (requires json-server)
-> - ❌ Form submission to API (requires json-server)
-> - ❌ Employee list with real data (requires json-server)
+> **What requires local setup for full data persistence:**
+> - 💾 Form submissions to json-server (deployed version shows simulation only)
+> - 💾 Employee list with persistent data (deployed version shows empty list initially)
 >
-> **To see full functionality including async autocomplete, form submissions, and employee data**, please follow the [Setup & Installation](#setup--installation) instructions below to run the project locally with json-server.
+> **To test full data persistence** with json-server, please follow the [Setup & Installation](#setup--installation) instructions below to run the project locally.
 
 ## Features
 
