@@ -2,6 +2,28 @@
 
 A 2-step role-based wizard form application for managing employee data with async autocomplete, file upload, auto-generated IDs, draft auto-save, and bulk async submit.
 
+## 🌐 Live Demo
+
+**Production URL**: [https://employee-wizard.vercel.app/](https://employee-wizard.vercel.app/)
+
+> **⚠️ Important Note About the Live Demo**
+>
+> The deployed version on Vercel shows the **application UI and interface** but has **limited functionality** because it does not include the json-server mock API backends.
+>
+> **What works on the live demo:**
+> - ✅ UI/UX and responsive design (360px - 1440px)
+> - ✅ Form validation
+> - ✅ Draft auto-save to localStorage
+> - ✅ File upload with Base64 preview
+> - ✅ Navigation and routing
+>
+> **What requires local setup:**
+> - ❌ Async autocomplete for Department and Location (requires json-server)
+> - ❌ Form submission to API (requires json-server)
+> - ❌ Employee list with real data (requires json-server)
+>
+> **To see full functionality including async autocomplete, form submissions, and employee data**, please follow the [Setup & Installation](#setup--installation) instructions below to run the project locally with json-server.
+
 ## Features
 
 ✅ **Role-Based Wizard**
