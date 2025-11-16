@@ -121,7 +121,6 @@ export const Step2Details: React.FC<Step2Props> = ({
         onSubmit();
       }, 1500);
     } catch (error) {
-      console.error("Submit error:", error);
       setProgress({
         step: "error",
         message:

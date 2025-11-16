@@ -33,7 +33,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({ label, value, onChange, 
       setPreview(base64);
       onChange(base64);
     } catch (error) {
-      console.error('Error converting file:', error);
       alert('Failed to upload file');
     } finally {
       setUploading(false);

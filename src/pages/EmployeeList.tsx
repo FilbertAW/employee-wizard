@@ -33,7 +33,7 @@ export const EmployeeList: React.FC = () => {
       setEmployees(paginatedEmployees);
       setTotalPages(Math.ceil(allMerged.length / itemsPerPage));
     } catch (error) {
-      console.error("Error fetching employees:", error);
+      console.error('Error fetching employees:', error);
     } finally {
       setLoading(false);
     }

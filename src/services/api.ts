@@ -30,13 +30,11 @@ function setCache<T>(key: string, data: T): void {
 }
 
 export const api = {
-  // Departments
   async searchDepartments(query: string): Promise<Department[]> {
     const cacheKey = `departments:${query.toLowerCase()}`;
     const cached = getCached<Department[]>(cacheKey);
     if (cached) return cached;
 
-    // Fetch all departments and filter client-side for case-insensitive search
     const allDepartments = await this.getAllDepartments();
     const filtered = allDepartments.filter(dept =>
       dept.name.toLowerCase().includes(query.toLowerCase())
@@ -57,13 +55,11 @@ export const api = {
     return data;
   },
 
-  // Locations
   async searchLocations(query: string): Promise<Location[]> {
     const cacheKey = `locations:${query.toLowerCase()}`;
     const cached = getCached<Location[]>(cacheKey);
     if (cached) return cached;
 
-    // Fetch all locations and filter client-side for case-insensitive search
     const allLocations = await this.getAllLocations();
     const filtered = allLocations.filter(loc =>
       loc.name.toLowerCase().includes(query.toLowerCase())
@@ -84,7 +80,6 @@ export const api = {
     return data;
   },
 
-  // BasicInfo
   async getBasicInfo(page?: number, limit?: number): Promise<{ data: BasicInfo[], total: number }> {
     const cacheKey = `basicInfo:${page}:${limit}`;
     const cached = getCached<{ data: BasicInfo[], total: number }>(cacheKey);
@@ -127,14 +122,11 @@ export const api = {
       body: JSON.stringify(data),
     });
     if (!response.ok) throw new Error('Failed to create basic info');
-    
-    // Clear cache after mutation
     cache.clear();
     
     return response.json();
   },
 
-  // Details
   async getDetails(page?: number, limit?: number): Promise<{ data: Details[], total: number }> {
     const cacheKey = `details:${page}:${limit}`;
     const cached = getCached<{ data: Details[], total: number }>(cacheKey);
@@ -177,8 +169,6 @@ export const api = {
       body: JSON.stringify(data),
     });
     if (!response.ok) throw new Error('Failed to create details');
-    
-    // Clear cache after mutation
     cache.clear();
     
     return response.json();

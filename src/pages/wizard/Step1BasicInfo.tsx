@@ -30,7 +30,6 @@ export const Step1BasicInfo: React.FC<Step1Props> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [employeeId, setEmployeeId] = useState(initialData?.employeeId || "");
 
-  // Update form when initialData changes
   useEffect(() => {
     const initialDataStr = JSON.stringify(initialData);
     const formDataStr = JSON.stringify(formData);
@@ -48,7 +47,6 @@ export const Step1BasicInfo: React.FC<Step1Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
 
-  // Auto-generate employee ID when department changes (only if no employeeId exists)
   useEffect(() => {
     const generateId = async () => {
       if (formData.department && !formData.employeeId) {
@@ -61,7 +59,7 @@ export const Step1BasicInfo: React.FC<Step1Props> = ({
           setEmployeeId(id);
           setFormData((prev) => ({ ...prev, employeeId: id }));
         } catch (error) {
-          console.error("Error generating employee ID:", error);
+          console.error('Error generating employee ID:', error);
         }
       }
     };

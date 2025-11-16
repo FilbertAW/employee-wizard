@@ -56,7 +56,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         setSuggestions(results);
         setShowSuggestions(true);
       } catch (error) {
-        console.error("Search error:", error);
         setSuggestions([]);
       } finally {
         setLoading(false);
