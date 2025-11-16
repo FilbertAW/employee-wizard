@@ -8,7 +8,7 @@ A 2-step role-based wizard form application for managing employee data with asyn
 
 > **⚠️ Important Note About the Live Demo**
 >
-> The deployed version on Vercel is **fully functional** with fallback data for departments and locations when json-server is unavailable.
+> The deployed version on Vercel is **fully functional** with localStorage-based persistence for employee data.
 >
 > **What works on the live demo:**
 > - ✅ UI/UX and responsive design (360px - 1440px)
@@ -18,13 +18,16 @@ A 2-step role-based wizard form application for managing employee data with asyn
 > - ✅ File upload with Base64 preview
 > - ✅ Employee ID auto-generation
 > - ✅ Navigation and routing
-> - ✅ Full wizard flow
+> - ✅ Full wizard flow for both Admin and Ops roles
+> - ✅ Employee data persistence via **browser localStorage** (not server-side)
+> - ✅ Employee list with submitted data (stored in localStorage)
 >
-> **What requires local setup for full data persistence:**
-> - 💾 Form submissions to json-server (deployed version shows simulation only)
-> - 💾 Employee list with persistent data (deployed version shows empty list initially)
+> **📌 Storage Mechanism:**
+> - **On deployed version**: Data is stored in your **browser's localStorage** (client-side only)
+> - **On local development**: Data is stored in **json-server** (simulated backend)
+> - **Note**: On the deployed version, clearing your browser data or using a different browser/device will reset the employee list
 >
-> **To test full data persistence** with json-server, please follow the [Setup & Installation](#setup--installation) instructions below to run the project locally.
+> **To test with persistent server-side storage** using json-server, please follow the [Setup & Installation](#setup--installation) instructions below to run the project locally.
 
 ## Features
 
@@ -52,6 +55,7 @@ A 2-step role-based wizard form application for managing employee data with asyn
 - **Data Caching**: API responses cached for 5 minutes to improve performance
 - **Data Merging**: Employee list merges data from two separate endpoints
 - **Pagination**: Employee list with pagination support
+- **Smart Fallback**: Automatically uses localStorage when json-server is unavailable (deployed version)
 
 ✅ **Employee List Page**
 - Display merged employee data
@@ -146,17 +150,24 @@ yarn server:step2
 ### Data Flow
 
 1. **Submit Flow** (Admin):
-   - Complete Step 1 → Data stored locally
+   - Complete Step 1 → Data stored temporarily
    - Complete Step 2 → Sequential POST:
      - POST to `/basicInfo` (port 4001) with 3s delay
      - POST to `/details` (port 4002) with 3s delay
+   - **Fallback**: If API unavailable, stores complete employee data (basicInfo + details) to localStorage
    - Progress bar shows real-time status
    - Redirect to Employee List on completion
 
 2. **Submit Flow** (Ops):
    - Complete Step 2 only
    - POST to `/details` (port 4002) with 3s delay
+   - **Fallback**: If API unavailable, stores details with placeholder basicInfo to localStorage (role shown as "Ops")
    - Redirect to Employee List on completion
+
+3. **Data Persistence**:
+   - **Local Development**: Data persists in json-server database files
+   - **Deployed Version**: Data persists in browser's localStorage (client-side only)
+   - Employee list reads from localStorage when API is unavailable
 
 ### Caching
 
@@ -193,7 +204,8 @@ employee-wizard/
 │   │   │   └── Wizard.tsx
 │   │   └── EmployeeList.tsx
 │   ├── services/
-│   │   └── api.ts
+│   │   ├── api.ts
+│   │   └── employeeStorage.ts
 │   ├── styles/
 │   │   ├── Autocomplete.css
 │   │   ├── Button.css
