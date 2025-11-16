@@ -46,7 +46,7 @@ A 2-step role-based wizard form application for managing employee data with asyn
 ## Setup & Installation
 
 ### Prerequisites
-- Node.js (v18 or higher)
+- Node.js (v18 or higher, personally I use v20.19.3 on development process)
 - yarn
 
 ### Installation Steps
