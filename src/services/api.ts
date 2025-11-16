@@ -236,17 +236,20 @@ export const api = {
 
       return response.json();
     } catch (error) {
-      console.log('API unavailable, storing complete employee in localStorage:', error);
+      console.log('API unavailable, storing details in localStorage:', error);
       cache.clear();
 
-      // Retrieve the pending basic info that was stored earlier
+      // Retrieve the pending basic info that was stored earlier (from Admin flow)
       const basicInfo = employeeStorage.getPendingBasicInfo();
 
       if (basicInfo) {
-        // Store the complete employee record
+        // Store the complete employee record (Admin submitted both basicInfo and details)
         employeeStorage.add(basicInfo, data);
+        console.log('[localStorage] Stored complete employee with basicInfo and details');
       } else {
-        console.warn('No pending basic info found. Employee details may not be properly stored.');
+        // Ops users only submit details, without basicInfo
+        // We can't store incomplete records, so just return the data
+        console.log('[localStorage] No basicInfo found - Ops user submission, data not persisted');
       }
 
       // Return the data as-is to simulate successful creation

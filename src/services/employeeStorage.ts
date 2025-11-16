@@ -37,6 +37,7 @@ export const employeeStorage = {
   setPendingBasicInfo(basicInfo: BasicInfo): void {
     try {
       localStorage.setItem(PENDING_BASIC_INFO_KEY, JSON.stringify(basicInfo));
+      console.log('[employeeStorage] Stored pending basicInfo:', basicInfo);
     } catch (error) {
       console.error('Error storing pending basic info:', error);
     }
@@ -46,10 +47,14 @@ export const employeeStorage = {
   getPendingBasicInfo(): BasicInfo | null {
     try {
       const stored = localStorage.getItem(PENDING_BASIC_INFO_KEY);
+      console.log('[employeeStorage] Getting pending basicInfo, found:', stored ? 'YES' : 'NO');
       if (stored) {
+        const parsed = JSON.parse(stored);
+        console.log('[employeeStorage] Parsed pending basicInfo:', parsed);
         localStorage.removeItem(PENDING_BASIC_INFO_KEY);
-        return JSON.parse(stored);
+        return parsed;
       }
+      console.warn('[employeeStorage] No pending basicInfo found in localStorage!');
       return null;
     } catch (error) {
       console.error('Error reading pending basic info:', error);
