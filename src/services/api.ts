@@ -1,4 +1,5 @@
 import type { Department, Location, BasicInfo, Details } from '../types';
+import { employeeStorage } from './employeeStorage';
 
 const BASE_URL_STEP1 = 'http://localhost:4001';
 const BASE_URL_STEP2 = 'http://localhost:4002';
@@ -139,8 +140,17 @@ export const api = {
         return result;
       }
     } catch (error) {
-      console.error('API unavailable, using fallback empty basicInfo:', error);
-      return { data: [], total: 0 };
+      console.error('API unavailable, using localStorage for basicInfo:', error);
+      const data = employeeStorage.getAllBasicInfo();
+
+      if (page && limit) {
+        const start = (page - 1) * limit;
+        const end = start + limit;
+        const paginatedData = data.slice(start, end);
+        return { data: paginatedData, total: data.length };
+      }
+
+      return { data, total: data.length };
     }
   },
 
@@ -156,8 +166,10 @@ export const api = {
 
       return response.json();
     } catch (error) {
-      console.log('API unavailable, simulating successful creation of basicInfo:', error);
+      console.log('API unavailable, storing basicInfo in localStorage:', error);
       cache.clear();
+      // Store basic info temporarily until details are submitted
+      employeeStorage.setPendingBasicInfo(data);
       // Return the data as-is to simulate successful creation
       return data;
     }
@@ -198,8 +210,17 @@ export const api = {
         return result;
       }
     } catch (error) {
-      console.error('API unavailable, using fallback empty details:', error);
-      return { data: [], total: 0 };
+      console.error('API unavailable, using localStorage for details:', error);
+      const data = employeeStorage.getAllDetails();
+
+      if (page && limit) {
+        const start = (page - 1) * limit;
+        const end = start + limit;
+        const paginatedData = data.slice(start, end);
+        return { data: paginatedData, total: data.length };
+      }
+
+      return { data, total: data.length };
     }
   },
 
@@ -215,8 +236,19 @@ export const api = {
 
       return response.json();
     } catch (error) {
-      console.log('API unavailable, simulating successful creation of details:', error);
+      console.log('API unavailable, storing complete employee in localStorage:', error);
       cache.clear();
+
+      // Retrieve the pending basic info that was stored earlier
+      const basicInfo = employeeStorage.getPendingBasicInfo();
+
+      if (basicInfo) {
+        // Store the complete employee record
+        employeeStorage.add(basicInfo, data);
+      } else {
+        console.warn('No pending basic info found. Employee details may not be properly stored.');
+      }
+
       // Return the data as-is to simulate successful creation
       return data;
     }
