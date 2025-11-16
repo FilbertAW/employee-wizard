@@ -46,7 +46,6 @@ export const Step2Details: React.FC<Step2Props> = ({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Update form when initialData changes
   useEffect(() => {
     const initialDataStr = JSON.stringify(initialData);
     const formDataStr = JSON.stringify(formData);
@@ -59,7 +58,6 @@ export const Step2Details: React.FC<Step2Props> = ({
         notes: initialData.notes || "",
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialData]);
 
   const handleChange = (field: keyof Details, value: string) => {

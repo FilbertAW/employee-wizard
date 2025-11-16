@@ -4,7 +4,6 @@ import { employeeStorage } from './employeeStorage';
 const BASE_URL_STEP1 = 'http://localhost:4001';
 const BASE_URL_STEP2 = 'http://localhost:4002';
 
-// Fallback data for when json-server is not available (e.g., on deployed version)
 const FALLBACK_DEPARTMENTS: Department[] = [
   { id: 1, name: 'Lending' },
   { id: 2, name: 'Funding' },
@@ -18,14 +17,13 @@ const FALLBACK_LOCATIONS: Location[] = [
   { id: 3, name: 'Surabaya' }
 ];
 
-// Simple in-memory cache
 interface CacheEntry<T> {
   data: T;
   timestamp: number;
 }
 
 const cache = new Map<string, CacheEntry<unknown>>();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 5 * 60 * 1000;
 
 function getCached<T>(key: string): T | null {
   const entry = cache.get(key);
@@ -163,14 +161,10 @@ export const api = {
       });
       if (!response.ok) throw new Error('Failed to create basic info');
       cache.clear();
-
       return response.json();
     } catch (error) {
-      console.log('API unavailable, storing basicInfo in localStorage:', error);
       cache.clear();
-      // Store basic info temporarily until details are submitted
       employeeStorage.setPendingBasicInfo(data);
-      // Return the data as-is to simulate successful creation
       return data;
     }
   },
@@ -236,23 +230,16 @@ export const api = {
 
       return response.json();
     } catch (error) {
-      console.log('API unavailable, storing details in localStorage:', error);
       cache.clear();
 
-      // Retrieve the pending basic info that was stored earlier (from Admin flow)
       const basicInfo = employeeStorage.getPendingBasicInfo();
 
       if (basicInfo) {
-        // Store the complete employee record (Admin submitted both basicInfo and details)
         employeeStorage.add(basicInfo, data);
-        console.log('[localStorage] Stored complete employee with basicInfo and details');
       } else {
-        // Ops users only submit details, without basicInfo
-        // We can't store incomplete records, so just return the data
-        console.log('[localStorage] No basicInfo found - Ops user submission, data not persisted');
+        employeeStorage.addDetailsOnly(data);
       }
 
-      // Return the data as-is to simulate successful creation
       return data;
     }
   },

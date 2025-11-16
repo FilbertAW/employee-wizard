@@ -9,74 +9,71 @@ interface StoredEmployee {
 }
 
 export const employeeStorage = {
-  // Get all stored employees
   getAll(): StoredEmployee[] {
     try {
       const stored = localStorage.getItem(EMPLOYEES_KEY);
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
-      console.error('Error reading from localStorage:', error);
       return [];
     }
   },
 
-  // Add a new employee
   add(basicInfo: BasicInfo, details: Details): void {
     try {
       const employees = this.getAll();
       employees.push({ basicInfo, details });
       localStorage.setItem(EMPLOYEES_KEY, JSON.stringify(employees));
-      console.log('[employeeStorage] Stored employee:', { basicInfo, details });
-      console.log('[employeeStorage] Total employees in storage:', employees.length);
     } catch (error) {
       console.error('Error writing to localStorage:', error);
     }
   },
 
-  // Store pending basic info temporarily (used when createBasicInfo succeeds but we don't have details yet)
+  addDetailsOnly(details: Details): void {
+    try {
+      const employees = this.getAll();
+      const opsBasicInfo: BasicInfo = {
+        employeeId: details.employeeId,
+        fullName: 'N/A',
+        email: 'N/A',
+        department: 'N/A',
+        role: 'Ops',
+      };
+      employees.push({ basicInfo: opsBasicInfo, details });
+      localStorage.setItem(EMPLOYEES_KEY, JSON.stringify(employees));
+    } catch (error) {
+      console.error('Error writing to localStorage:', error);
+    }
+  },
+
   setPendingBasicInfo(basicInfo: BasicInfo): void {
     try {
       localStorage.setItem(PENDING_BASIC_INFO_KEY, JSON.stringify(basicInfo));
-      console.log('[employeeStorage] Stored pending basicInfo:', basicInfo);
     } catch (error) {
       console.error('Error storing pending basic info:', error);
     }
   },
 
-  // Get and clear pending basic info
   getPendingBasicInfo(): BasicInfo | null {
     try {
       const stored = localStorage.getItem(PENDING_BASIC_INFO_KEY);
-      console.log('[employeeStorage] Getting pending basicInfo, found:', stored ? 'YES' : 'NO');
       if (stored) {
-        const parsed = JSON.parse(stored);
-        console.log('[employeeStorage] Parsed pending basicInfo:', parsed);
         localStorage.removeItem(PENDING_BASIC_INFO_KEY);
-        return parsed;
+        return JSON.parse(stored);
       }
-      console.warn('[employeeStorage] No pending basicInfo found in localStorage!');
       return null;
     } catch (error) {
-      console.error('Error reading pending basic info:', error);
       return null;
     }
   },
 
-  // Get all basic info records
   getAllBasicInfo(): BasicInfo[] {
-    const result = this.getAll().map(emp => emp.basicInfo);
-    console.log('[employeeStorage] getAllBasicInfo returning:', result.length, 'items');
-    return result;
+    return this.getAll().map(emp => emp.basicInfo);
   },
 
-  // Get all details records
   getAllDetails(): Details[] {
-    const result = this.getAll().map(emp => emp.details);
-    console.log('[employeeStorage] getAllDetails returning:', result.length, 'items');
-    return result;
+    return this.getAll().map(emp => emp.details);
   },
 
-  // Clear all stored employees
   clear(): void {
     try {
       localStorage.removeItem(EMPLOYEES_KEY);
