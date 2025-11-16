@@ -1,0 +1,122 @@
+.file-upload-wrapper {
+  margin-bottom: 1.25rem;
+}
+
+.file-upload-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #212529;
+  font-size: 0.9375rem;
+}
+
+.file-upload-input {
+  width: 100%;
+  padding: 0.625rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #212529;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.file-upload-input:hover {
+  border-color: #adb5bd;
+}
+
+.file-upload-input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.file-upload-loading {
+  margin-top: 0.625rem;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.9375rem;
+}
+
+.file-upload-preview {
+  margin-top: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: inline-block;
+  background-color: #f8f9fa;
+}
+
+.file-upload-image {
+  max-width: 100%;
+  max-height: 250px;
+  display: block;
+  border-radius: 4px;
+}
+
+.file-upload-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem;
+  border: 1px solid #198754;
+  border-radius: 6px;
+  background-color: #d1e7dd;
+}
+
+.file-upload-status-text {
+  color: #0f5132;
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+
+.file-upload-remove-button {
+  padding: 0.375rem 0.75rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.file-upload-remove-button:hover {
+  background-color: #bb2d3b;
+}
+
+.file-upload-remove-button:active {
+  background-color: #a02834;
+}
+
+.file-upload-error-message {
+  display: block;
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.375rem;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .file-upload-image {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .file-upload-input {
+    padding: 0.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .file-upload-label {
+    font-size: 0.875rem;
+  }
+
+  .file-upload-image {
+    max-height: 180px;
+  }
+}
