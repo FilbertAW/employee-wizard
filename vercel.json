@@ -2,5 +2,11 @@
   "buildCommand": "yarn build",
   "outputDirectory": "dist",
   "devCommand": "yarn dev",
-  "installCommand": "yarn install"
+  "installCommand": "yarn install",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
