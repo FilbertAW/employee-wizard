@@ -1,0 +1,77 @@
+.step1-container {
+  width: 100%;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.step1-container h2 {
+  margin: 0 0 1.5rem 0;
+  color: #212529;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.75rem;
+}
+
+.step1-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .step1-container {
+    padding: 1.5rem;
+  }
+
+  .step1-container h2 {
+    font-size: 1.375rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .step1-actions {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .step1-container {
+    padding: 1rem;
+  }
+
+  .step1-container h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.625rem;
+  }
+
+  .step1-actions {
+    margin-top: 1.5rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .step1-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .step1-container {
+    padding: 0.875rem;
+  }
+
+  .step1-container h2 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .step1-actions {
+    margin-top: 1.25rem;
+  }
+}
