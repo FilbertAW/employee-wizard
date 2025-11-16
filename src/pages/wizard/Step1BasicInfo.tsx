@@ -49,7 +49,7 @@ export const Step1BasicInfo: React.FC<Step1Props> = ({
 
   useEffect(() => {
     const generateId = async () => {
-      if (formData.department && !formData.employeeId) {
+      if (formData.department) {
         try {
           const existingEmployees = await api.getBasicInfo();
           const id = generateEmployeeId(
@@ -64,7 +64,7 @@ export const Step1BasicInfo: React.FC<Step1Props> = ({
       }
     };
     generateId();
-  }, [formData.department, formData.employeeId]);
+  }, [formData.department]);
 
   const handleChange = (field: keyof BasicInfo, value: string) => {
     const newData = { ...formData, [field]: value };

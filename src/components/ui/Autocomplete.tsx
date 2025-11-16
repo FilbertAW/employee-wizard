@@ -19,6 +19,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   placeholder,
 }) => {
   const [inputValue, setInputValue] = useState(value);
+  const [selectedValue, setSelectedValue] = useState(value);
   const [suggestions, setSuggestions] = useState<
     { id: number; name: string }[]
   >([]);
@@ -28,6 +29,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   useEffect(() => {
     setInputValue(value);
+    setSelectedValue(value);
   }, [value]);
 
   useEffect(() => {
@@ -37,17 +39,21 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         !wrapperRef.current.contains(event.target as Node)
       ) {
         setShowSuggestions(false);
+        // Reset to selected value if user didn't select from dropdown
+        if (inputValue !== selectedValue) {
+          setInputValue(selectedValue);
+          onChange(selectedValue);
+        }
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [inputValue, selectedValue, onChange]);
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setInputValue(query);
-    onChange(query);
 
     if (query.trim().length > 0) {
       setLoading(true);
@@ -63,11 +69,14 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     } else {
       setSuggestions([]);
       setShowSuggestions(false);
+      setSelectedValue("");
+      onChange("");
     }
   };
 
   const handleSelectSuggestion = (suggestion: { id: number; name: string }) => {
     setInputValue(suggestion.name);
+    setSelectedValue(suggestion.name);
     onChange(suggestion.name);
     setShowSuggestions(false);
   };

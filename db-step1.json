@@ -1,21 +1,30 @@
 {
   "departments": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Lending"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Funding"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Operations"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Engineering"
     }
   ],
-  "basicInfo": []
+  "basicInfo": [
+    {
+      "id": "06d9",
+      "fullName": "test",
+      "email": "test@test.com",
+      "department": "Lending",
+      "role": "Admin",
+      "employeeId": "LEN-001"
+    }
+  ]
 }
