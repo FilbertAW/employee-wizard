@@ -109,33 +109,38 @@ export const api = {
     const cached = getCached<{ data: BasicInfo[], total: number }>(cacheKey);
     if (cached) return cached;
 
-    let url = `${BASE_URL_STEP1}/basicInfo`;
+    try {
+      let url = `${BASE_URL_STEP1}/basicInfo`;
 
-    if (page && limit) {
-      const start = (page - 1) * limit;
-      const end = start + limit;
-      url += `?_start=${start}&_end=${end}`;
+      if (page && limit) {
+        const start = (page - 1) * limit;
+        const end = start + limit;
+        url += `?_start=${start}&_end=${end}`;
 
-      const [response, totalResponse] = await Promise.all([
-        fetch(url),
-        fetch(`${BASE_URL_STEP1}/basicInfo`)
-      ]);
+        const [response, totalResponse] = await Promise.all([
+          fetch(url),
+          fetch(`${BASE_URL_STEP1}/basicInfo`)
+        ]);
 
-      if (!response.ok) throw new Error('Failed to fetch basic info');
-      if (!totalResponse.ok) throw new Error('Failed to fetch total count');
+        if (!response.ok) throw new Error('Failed to fetch basic info');
+        if (!totalResponse.ok) throw new Error('Failed to fetch total count');
 
-      const data = await response.json();
-      const totalData = await totalResponse.json();
-      const result = { data, total: totalData.length };
-      setCache(cacheKey, result);
-      return result;
-    } else {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('Failed to fetch basic info');
-      const data = await response.json();
-      const result = { data, total: data.length };
-      setCache(cacheKey, result);
-      return result;
+        const data = await response.json();
+        const totalData = await totalResponse.json();
+        const result = { data, total: totalData.length };
+        setCache(cacheKey, result);
+        return result;
+      } else {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch basic info');
+        const data = await response.json();
+        const result = { data, total: data.length };
+        setCache(cacheKey, result);
+        return result;
+      }
+    } catch (error) {
+      console.error('API unavailable, using fallback empty basicInfo:', error);
+      return { data: [], total: 0 };
     }
   },
 
@@ -156,33 +161,38 @@ export const api = {
     const cached = getCached<{ data: Details[], total: number }>(cacheKey);
     if (cached) return cached;
 
-    let url = `${BASE_URL_STEP2}/details`;
+    try {
+      let url = `${BASE_URL_STEP2}/details`;
 
-    if (page && limit) {
-      const start = (page - 1) * limit;
-      const end = start + limit;
-      url += `?_start=${start}&_end=${end}`;
+      if (page && limit) {
+        const start = (page - 1) * limit;
+        const end = start + limit;
+        url += `?_start=${start}&_end=${end}`;
 
-      const [response, totalResponse] = await Promise.all([
-        fetch(url),
-        fetch(`${BASE_URL_STEP2}/details`)
-      ]);
+        const [response, totalResponse] = await Promise.all([
+          fetch(url),
+          fetch(`${BASE_URL_STEP2}/details`)
+        ]);
 
-      if (!response.ok) throw new Error('Failed to fetch details');
-      if (!totalResponse.ok) throw new Error('Failed to fetch total count');
+        if (!response.ok) throw new Error('Failed to fetch details');
+        if (!totalResponse.ok) throw new Error('Failed to fetch total count');
 
-      const data = await response.json();
-      const totalData = await totalResponse.json();
-      const result = { data, total: totalData.length };
-      setCache(cacheKey, result);
-      return result;
-    } else {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('Failed to fetch details');
-      const data = await response.json();
-      const result = { data, total: data.length };
-      setCache(cacheKey, result);
-      return result;
+        const data = await response.json();
+        const totalData = await totalResponse.json();
+        const result = { data, total: totalData.length };
+        setCache(cacheKey, result);
+        return result;
+      } else {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch details');
+        const data = await response.json();
+        const result = { data, total: data.length };
+        setCache(cacheKey, result);
+        return result;
+      }
+    } catch (error) {
+      console.error('API unavailable, using fallback empty details:', error);
+      return { data: [], total: 0 };
     }
   },
 
