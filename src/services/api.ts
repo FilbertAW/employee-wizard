@@ -3,6 +3,20 @@ import type { Department, Location, BasicInfo, Details } from '../types';
 const BASE_URL_STEP1 = 'http://localhost:4001';
 const BASE_URL_STEP2 = 'http://localhost:4002';
 
+// Fallback data for when json-server is not available (e.g., on deployed version)
+const FALLBACK_DEPARTMENTS: Department[] = [
+  { id: 1, name: 'Lending' },
+  { id: 2, name: 'Funding' },
+  { id: 3, name: 'Operations' },
+  { id: 4, name: 'Engineering' }
+];
+
+const FALLBACK_LOCATIONS: Location[] = [
+  { id: 1, name: 'Jakarta' },
+  { id: 2, name: 'Depok' },
+  { id: 3, name: 'Surabaya' }
+];
+
 // Simple in-memory cache
 interface CacheEntry<T> {
   data: T;
@@ -48,11 +62,16 @@ export const api = {
     const cached = getCached<Department[]>(cacheKey);
     if (cached) return cached;
 
-    const response = await fetch(`${BASE_URL_STEP1}/departments`);
-    if (!response.ok) throw new Error('Failed to fetch departments');
-    const data = await response.json();
-    setCache(cacheKey, data);
-    return data;
+    try {
+      const response = await fetch(`${BASE_URL_STEP1}/departments`);
+      if (!response.ok) throw new Error('Failed to fetch departments');
+      const data = await response.json();
+      setCache(cacheKey, data);
+      return data;
+    } catch (error) {
+      console.error('API unavailable, using fallback departments:', error);
+      return FALLBACK_DEPARTMENTS;
+    }
   },
 
   async searchLocations(query: string): Promise<Location[]> {
@@ -73,11 +92,16 @@ export const api = {
     const cached = getCached<Location[]>(cacheKey);
     if (cached) return cached;
 
-    const response = await fetch(`${BASE_URL_STEP2}/locations`);
-    if (!response.ok) throw new Error('Failed to fetch locations');
-    const data = await response.json();
-    setCache(cacheKey, data);
-    return data;
+    try {
+      const response = await fetch(`${BASE_URL_STEP2}/locations`);
+      if (!response.ok) throw new Error('Failed to fetch locations');
+      const data = await response.json();
+      setCache(cacheKey, data);
+      return data;
+    } catch (error) {
+      console.error('API unavailable, using fallback locations:', error);
+      return FALLBACK_LOCATIONS;
+    }
   },
 
   async getBasicInfo(page?: number, limit?: number): Promise<{ data: BasicInfo[], total: number }> {
