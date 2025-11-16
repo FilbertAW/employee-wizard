@@ -59,7 +59,7 @@ export const Step1BasicInfo: React.FC<Step1Props> = ({
           setEmployeeId(id);
           setFormData((prev) => ({ ...prev, employeeId: id }));
         } catch (error) {
-          console.error('Error generating employee ID:', error);
+          console.error("Error generating employee ID:", error);
         }
       }
     };
@@ -69,9 +69,7 @@ export const Step1BasicInfo: React.FC<Step1Props> = ({
   const handleChange = (field: keyof BasicInfo, value: string) => {
     const newData = { ...formData, [field]: value };
     setFormData(newData);
-    // Notify parent immediately for draft saving
     onChange?.(newData);
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }

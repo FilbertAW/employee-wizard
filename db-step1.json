@@ -17,14 +17,5 @@
       "name": "Engineering"
     }
   ],
-  "basicInfo": [
-    {
-      "id": "06d9",
-      "fullName": "test",
-      "email": "test@test.com",
-      "department": "Lending",
-      "role": "Admin",
-      "employeeId": "LEN-001"
-    }
-  ]
+  "basicInfo": []
 }

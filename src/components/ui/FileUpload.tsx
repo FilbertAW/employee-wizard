@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { fileToBase64 } from '../../utils/helpers';
-import '../../styles/FileUpload.css';
+import React, { useState, useEffect } from "react";
+import { fileToBase64 } from "../../utils/helpers";
+import "../../styles/FileUpload.css";
 
 interface FileUploadProps {
   label: string;
@@ -9,11 +9,15 @@ interface FileUploadProps {
   error?: string;
 }
 
-export const FileUpload: React.FC<FileUploadProps> = ({ label, value, onChange, error }) => {
+export const FileUpload: React.FC<FileUploadProps> = ({
+  label,
+  value,
+  onChange,
+  error,
+}) => {
   const [preview, setPreview] = useState<string>(value);
   const [uploading, setUploading] = useState(false);
 
-  // Update preview when value prop changes (e.g., when draft is loaded)
   useEffect(() => {
     setPreview(value);
   }, [value]);
@@ -22,8 +26,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({ label, value, onChange, 
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith('image/')) {
-      alert('Please upload an image file');
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload an image file");
       return;
     }
 
@@ -33,49 +37,49 @@ export const FileUpload: React.FC<FileUploadProps> = ({ label, value, onChange, 
       setPreview(base64);
       onChange(base64);
     } catch (error) {
-      alert('Failed to upload file');
+      console.error(error);
+      alert("Failed to upload file");
     } finally {
       setUploading(false);
     }
   };
 
   const handleRemove = () => {
-    setPreview('');
-    onChange('');
+    setPreview("");
+    onChange("");
   };
 
   return (
-    <div className="file-upload-wrapper">
-      <label className="file-upload-label">{label}</label>
+    <div className='file-upload-wrapper'>
+      <label className='file-upload-label'>{label}</label>
       {!preview ? (
         <>
           <input
-            type="file"
-            accept="image/*"
+            type='file'
+            accept='image/*'
             onChange={handleFileChange}
-            className="file-upload-input"
+            className='file-upload-input'
             disabled={uploading}
           />
-          {uploading && <div className="file-upload-loading">Uploading...</div>}
+          {uploading && <div className='file-upload-loading'>Uploading...</div>}
         </>
       ) : (
-        <div className="file-upload-status">
-          <span className="file-upload-status-text">Photo uploaded</span>
+        <div className='file-upload-status'>
+          <span className='file-upload-status-text'>Photo uploaded</span>
           <button
-            type="button"
+            type='button'
             onClick={handleRemove}
-            className="file-upload-remove-button"
-          >
+            className='file-upload-remove-button'>
             Remove
           </button>
         </div>
       )}
       {preview && (
-        <div className="file-upload-preview">
-          <img src={preview} alt="Preview" className="file-upload-image" />
+        <div className='file-upload-preview'>
+          <img src={preview} alt='Preview' className='file-upload-image' />
         </div>
       )}
-      {error && <span className="file-upload-error-message">{error}</span>}
+      {error && <span className='file-upload-error-message'>{error}</span>}
     </div>
   );
 };
