@@ -6,6 +6,8 @@ A 2-step role-based wizard form application for managing employee data with asyn
 
 **Production URL**: [https://employee-wizard.vercel.app/](https://employee-wizard.vercel.app/)
 
+**GitHub Repository**: [https://github.com/FilbertAW/employee-wizard](https://github.com/FilbertAW/employee-wizard)
+
 > **⚠️ Important Note About the Live Demo**
 >
 > The deployed version on Vercel is **fully functional** with localStorage-based persistence for employee data.
@@ -81,7 +83,7 @@ A 2-step role-based wizard form application for managing employee data with asyn
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/FilbertAW/employee-wizard.git
    cd employee-wizard
    ```
 
